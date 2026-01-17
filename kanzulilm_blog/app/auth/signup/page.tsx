@@ -18,8 +18,12 @@ function SignUpPage() {
       email: "",
       password: "",
     },
-
   })
+
+  function onSubmit() {
+    console.log("yo");
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -31,7 +35,7 @@ function SignUpPage() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup className="gap-y-4">
             <Controller
               name="name"
@@ -39,7 +43,7 @@ function SignUpPage() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel>Name</FieldLabel>
-                  <Input placeholder="Your Name" type="text" {...field} />
+                  <Input aria-invalid={fieldState.invalid} placeholder="Your Name" type="text" {...field} />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
                   )}
@@ -52,7 +56,7 @@ function SignUpPage() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel>Email</FieldLabel>
-                  <Input placeholder="YourEmail@example.com" type="email" {...field} />
+                  <Input aria-invalid={fieldState.invalid} placeholder="YourEmail@example.com" type="email" {...field} />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
                   )}
@@ -65,14 +69,14 @@ function SignUpPage() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel>Password</FieldLabel>
-                  <Input placeholder="Enter Your Password" type="password" {...field} />
+                  <Input aria-invalid={fieldState.invalid} placeholder="Enter Your Password" type="password" {...field} />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
                   )}
                 </Field>
               )}
             />
-            <Button>Sign Up</Button>
+            <Button aria-disabled={form.formState.isSubmitting}>Sign Up</Button>
           </FieldGroup>
         </form>
       </CardContent>
